@@ -284,21 +284,30 @@ body.addEventListener('click', (event) => {
         input.value = '';
         button.classList += ' disabled';
         closeBtn.style.display = 'none';
+        addList(defaultList);
     }
     //если кликнули в пустое поле
     else {
+        if (input.value !== ''){
+            label.innerHTML = '';
+            }
+        
         autocompleteList.style.display = 'none';
         defaultList.style.display = 'none';
         selectList.style.display = 'none';
     }
 });
+input.addEventListener('focus', () => {
+        input.value = '';
+})
 
 //событие ввода букв в input
 input.addEventListener('input', () => {
     if (input.value === '') {
+        
         autocompleteList.style.display = 'none';
         defaultList.style.display = 'inline';
-
+        
         printCountriesDefault(localStorage.data);
         //если инпут не пустой
     } else {
@@ -318,6 +327,7 @@ input.addEventListener('input', () => {
             selectList.style.display = 'none';
             defaultList.style.display = 'none';
             let str = new RegExp(input.value, 'i');
+            
             let autocompleteCities = autocompleteList.children[0].children[1].querySelectorAll('.dropdown-lists__line');
             //удаление анимации загрузки
             autocompleteList.children[0].children[0].remove();
